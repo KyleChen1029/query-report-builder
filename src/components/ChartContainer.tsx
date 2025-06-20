@@ -23,7 +23,7 @@ import {
   Line,
   Legend,
 } from 'recharts';
-import { Download, FileDown, Image, FileSpreadsheet, MoreVertical } from 'lucide-react';
+import { Download, FileDown, Image, FileSpreadsheet } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface ChartContainerProps {
@@ -159,13 +159,13 @@ export function ChartContainer({ type, data, title }: ChartContainerProps) {
           <CardTitle className="text-lg font-semibold text-slate-700">
             {title}
           </CardTitle>
-          {isHovered && (
+          <div className={`transition-all duration-300 ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'}`}>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button 
                   variant="ghost" 
                   size="sm"
-                  className="opacity-0 animate-fade-in hover:bg-slate-100 transition-all duration-200"
+                  className="hover:bg-slate-100 transition-all duration-200"
                 >
                   <Download className="w-4 h-4 mr-1" />
                   匯出
@@ -195,7 +195,7 @@ export function ChartContainer({ type, data, title }: ChartContainerProps) {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          )}
+          </div>
         </div>
       </CardHeader>
       <CardContent className="pt-2">
