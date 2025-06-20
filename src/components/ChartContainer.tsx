@@ -49,16 +49,16 @@ export function ChartContainer({ type, data, title }: ChartContainerProps) {
     switch (type) {
       case 'bar':
         return (
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+          <ResponsiveContainer width="100%" height={350}>
+            <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
               <XAxis 
                 dataKey="name" 
-                tick={{ fontSize: 12, fill: '#64748b' }}
+                tick={{ fontSize: 14, fill: '#64748b' }}
                 axisLine={{ stroke: '#cbd5e1' }}
               />
               <YAxis 
-                tick={{ fontSize: 12, fill: '#64748b' }}
+                tick={{ fontSize: 14, fill: '#64748b' }}
                 axisLine={{ stroke: '#cbd5e1' }}
               />
               <Tooltip 
@@ -80,15 +80,15 @@ export function ChartContainer({ type, data, title }: ChartContainerProps) {
 
       case 'pie':
         return (
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={350}>
             <PieChart>
               <Pie
                 data={data}
                 cx="50%"
                 cy="50%"
                 labelLine={false}
-                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                outerRadius={80}
+                label={({ name, percent }) => `${name} ${percent}%`}
+                outerRadius={100}
                 fill="#8884d8"
                 dataKey="value"
               >
@@ -104,23 +104,22 @@ export function ChartContainer({ type, data, title }: ChartContainerProps) {
                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
                 }}
               />
-              <Legend />
             </PieChart>
           </ResponsiveContainer>
         );
 
       case 'line':
         return (
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+          <ResponsiveContainer width="100%" height={350}>
+            <LineChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
               <XAxis 
                 dataKey="name" 
-                tick={{ fontSize: 12, fill: '#64748b' }}
+                tick={{ fontSize: 14, fill: '#64748b' }}
                 axisLine={{ stroke: '#cbd5e1' }}
               />
               <YAxis 
-                tick={{ fontSize: 12, fill: '#64748b' }}
+                tick={{ fontSize: 14, fill: '#64748b' }}
                 axisLine={{ stroke: '#cbd5e1' }}
               />
               <Tooltip 
@@ -150,16 +149,18 @@ export function ChartContainer({ type, data, title }: ChartContainerProps) {
 
   return (
     <Card 
-      className="relative shadow-lg border-0 bg-white/90 backdrop-blur-sm hover:shadow-xl transition-all duration-300"
+      className="relative shadow-lg border-0 bg-white backdrop-blur-sm hover:shadow-xl transition-all duration-300 h-full"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <CardHeader className="pb-2">
+      <CardHeader className="pb-4 text-center">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-lg font-semibold text-slate-700">
-            {title}
-          </CardTitle>
-          <div className={`transition-all duration-300 ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'}`}>
+          <div className="flex-1">
+            <CardTitle className="text-xl font-bold text-slate-700 text-center">
+              {title}
+            </CardTitle>
+          </div>
+          <div className={`transition-all duration-500 ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'}`}>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button 
@@ -171,7 +172,7 @@ export function ChartContainer({ type, data, title }: ChartContainerProps) {
                   匯出
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
+              <DropdownMenuContent align="end" className="w-48 bg-white shadow-lg border">
                 <DropdownMenuItem 
                   onClick={() => handleExport('PNG')}
                   className="cursor-pointer"
@@ -198,7 +199,7 @@ export function ChartContainer({ type, data, title }: ChartContainerProps) {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="pt-2">
+      <CardContent className="pt-0">
         {renderChart()}
       </CardContent>
     </Card>
